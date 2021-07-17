@@ -1,0 +1,43 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.buttonStyl {
+  margin-left: 5px;
+}
+
+
+.tableStyle{
+  text-align: -webkit-center;
+  margin: 10px;
+  padding: 10px;
+}
+
+.tableStyle th {
+  width: 300px;
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+.tableStyle td {
+  min-width: 300px;
+  width: max-content;
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.tableStyle tr:nth-child(even) {
+  background-color: #eeebeb;
+}

@@ -1,0 +1,27 @@
+{
+    "Task Id.": "टास्क आईडी।",
+    "Enter task ID.": "टास्क आईडी दर्ज करें।",
+    "Date": "तारीख",
+    "Task Title": "कार्य शीर्षक",
+    "Enter Task Title.": "कार्य शीर्षक दर्ज करें।",
+    "Task description": "कार्य विवरण",
+    "Enter Task Description.": "कार्य विवरण दर्ज करें।",
+    "UI Technology": "यूआई प्रौद्योगिकी",
+    "Select": "चुने",
+    "Back-End Technology": "बैक-एंड टेक्नोलॉजी",
+    "Library Used": "पुस्तकालय प्रयुक्त",
+
+    "Add Task": "कार्य जोड़ें",
+    "Update Task": "कार्य अपडेट करें",
+    "Reset": "रीसेट",
+    "Cancel": "रद्द करना",
+
+    "ID must not be empty": "आईडी खाली नहीं होनी चाहिए",
+    "Id must be at least 3 characters!": "Id कम से कम 3 अक्षर का होना चाहिए!",
+    "Title must not be empty": "शीर्षक खाली नहीं होना चाहिए",
+    "Title must contain at least 5 characters": "शीर्षक में कम से कम 5 अक्षर होने चाहिए",
+    "Title must not exceed 15 characters": "शीर्षक 15 वर्णों से अधिक नहीं होना चाहिए",
+    "Select UI Technology.": "यूआई प्रौद्योगिकी का चयन करें।",
+    "Select Back End Technology.": "बैक एंड टेक्नोलॉजी का चयन करें।"
+
+}

@@ -1,0 +1,7 @@
+1. SSR ==> Server Side Rendering ==> (uses getInitialProps or getServerSideProps)
+    -----------------------------------------------------------------------------
+2. Static HTML ==>static HTML & uses no initial props / data
+3. SSG ==> Static Site Generation ==> static HTML + JSON (uses getStaticProps)
+4. ISR ==> Incremental sStatic Regeneration (uses revalidate in getStaticProps)
+
+====================================================================================

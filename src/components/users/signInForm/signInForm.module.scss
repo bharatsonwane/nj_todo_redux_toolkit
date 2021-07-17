@@ -1,0 +1,54 @@
+.formStyle {
+    background: #fff;
+    box-sizing: border-box;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.4);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 15px auto;
+    padding: 15px;
+    width: 600px;
+  }
+  
+  .formField {
+    display: flex;
+    flex-wrap: nowrap;
+    flex: 100%;
+    }
+  
+  .col {
+      padding: 5px;
+      color: rgb(54, 2, 6);
+      background-color: gr;
+    }
+    
+  
+  .formLable {
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 5px 5px 0;
+    text-align: right;
+    width: 40%;
+    color: rgb(31, 3, 3);
+  }
+  
+  .formBackEndLabel {
+    padding: 0px 5px;
+  }
+  
+  .formLibraryLabel{
+    padding: 0px 5px;
+  }
+  
+  .textarea {
+    vertical-align: top;
+    width: 50%;
+  }
+  
+  .buttonStyl {
+    margin-left: 5px;
+  }
+  
+  .formButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

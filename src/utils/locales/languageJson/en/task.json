@@ -1,0 +1,27 @@
+{
+    "Task Id.": "Task Id.",
+    "Enter task ID.": "Enter Task Id.",
+    "Date": "Date",
+    "Task Title": "Task Title",
+    "Enter Task Title.": "Enter Task Title.",
+    "Task description": "Task description",
+    "Enter Task Description.": "Enter Task Description.",
+    "UI Technology": "UI Technology",
+    "Select": "Select",
+    "Back-End Technology": "Back-End Technology",
+    "Library Used": "Library Used",
+
+    "Add Task": "Add Task",
+    "Update Task": "Update Task",
+    "Reset": "Reset",
+    "Cancel": "Cancel",
+
+    "ID must not be empty": "ID must not be empty",
+    "Id must be at least 3 characters!": "Id must be at least 3 characters!",
+    "Title must not be empty": "Title must not be empty",
+    "Title must contain at least 5 characters": "Title must contain at least 5 characters",
+    "Title must not exceed 15 characters": "Title must not exceed 15 characters",
+    "Select UI Technology.": "Select UI Technology.",
+    "Select Back End Technology.": "Select Back End Technology."
+
+}

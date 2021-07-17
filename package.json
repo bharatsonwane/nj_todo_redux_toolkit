@@ -1,0 +1,37 @@
+{
+  "name": "nj_todo_redux_toolkit",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.6.0",
+    "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
+    "bootstrap": "^5.0.2",
+    "cookie": "^0.4.1",
+    "i18next-locize-backend": "^4.2.3",
+    "js-cookie": "^2.2.1",
+    "next": "^11.0.1",
+    "next-auth": "^3.27.3",
+    "next-i18next": "^8.5.5",
+    "next-redux-wrapper": "^7.0.2",
+    "puppeteer": "^10.1.0",
+    "react": "^17.0.2",
+    "react-bootstrap": "^1.6.1",
+    "react-dom": "17.0.2",
+    "react-redux": "^7.2.4",
+    "react-toastify": "^7.0.4",
+    "sass": "^1.35.2",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.3"
+  },
+  "devDependencies": {
+    "eslint": "7.30.0",
+    "eslint-config-next": "11.0.1"
+  }
+}
