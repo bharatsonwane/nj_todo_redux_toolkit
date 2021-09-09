@@ -2,9 +2,9 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import mdl from "./signInForm.module.scss"
-import { allClass } from 'src/constants/customHooks/customModuleClassMethod';
+import { allClass } from 'src/helper/customHooks/customModuleClassMethod';
 import Cookies from 'js-cookie';
-import { usePrevious } from 'src/constants/customHooks/customHooks';
+import { usePrevious } from 'src/helper/customHooks/customHooks';
 import { useSelector, useDispatch } from 'react-redux'
 import { signIn } from 'next-auth/client';
 import { toast } from 'react-toastify';
@@ -26,10 +26,7 @@ function SignInForm() {
 
     // // ----------redux store useDispatch & useSelector --------------------
     const dispatch = useDispatch()
-    const reducerState = useSelector(
-        (state) => (state)
-    );
-
+    const reducerState = useSelector((state) => (state));
     let userReducer = reducerState.userReducer
 
     // // ----------hooks useState--------------------------------------------------
@@ -52,7 +49,7 @@ function SignInForm() {
     const prevPropsState = usePrevious({ isLoading, signInUserResponce, createUserError }) // custom hook to get previous props & state
     useEffect(() => {
         if (prevPropsState) {
-            if (prevPropsState.signInUserResponce !== signInUserResponce && signInUserResponce) { // // createResponce !== null && createResponce !== undefined
+            if (prevPropsState.signInUserResponce !== signInUserResponce && signInUserResponce) { // // createTaskResponse !== null && createTaskResponse !== undefined
                 Cookies.set('nextJWT', signInUserResponce.nextJWT, { expires: 2 });
                 dispatch(clientSideAuthGuardAction(signInUserResponce.nextJWT))
                 setTimeout(() => {

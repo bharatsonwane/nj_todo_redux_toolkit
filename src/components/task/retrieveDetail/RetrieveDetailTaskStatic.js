@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import mdl from './RetrieveDetailTask.module.scss'
-import { allClass } from 'src/constants/customHooks/customModuleClassMethod'
-import { usePrevious } from 'src/constants/customHooks/customHooks' // custome useStateCallback hook
+import { allClass } from 'src/helper/customHooks/customModuleClassMethod'
+import { usePrevious } from 'src/helper/customHooks/customHooks' // custome useStateCallback hook
 import { useSelector, useDispatch } from 'react-redux'
 import { globalStateSaveActions } from "src/redux/globalClientState_redux/globalClientState_actions"
 import { deleteTaskActions } from "src/redux/task_redux/task_actions"
@@ -23,9 +23,7 @@ function RetrieveDetailTaskStatic(props) {
 
     // // ----------redux store useDispatch & useSelector --------------------
     const dispatch = useDispatch()
-    const reducerState = useSelector(
-        (state) => (state)
-    );
+    const reducerState = useSelector((state) => (state));
     let taskReducer = reducerState.taskReducer
 
 
@@ -35,16 +33,16 @@ function RetrieveDetailTaskStatic(props) {
 
     // // ----------hooks useEffect--------------------------------------------------
     // // ***To check responce/error after success/error action from reducer***
-    const { deleteResponce, deleteError } = taskReducer
-    const prevPropsState = usePrevious({ deleteResponce, deleteError }) // custom hook to get previous props & state
+    const { deleteTaskResponse, deleteTaskError } = taskReducer
+    const prevPropsState = usePrevious({ deleteTaskResponse, deleteTaskError }) // custom hook to get previous props & state
     useEffect(() => {
         if (prevPropsState) {
-            if (prevPropsState.deleteResponce !== deleteResponce && deleteResponce) {
+            if (prevPropsState.deleteTaskResponse !== deleteTaskResponse && deleteTaskResponse) {
                 router.push(`/task/ssr/retrieve`);
                 setTimeout(() => {
                     toast.success("Task deleted successfully")
                 }, 500);
-            } else if (prevPropsState.deleteError !== deleteError && deleteError) {
+            } else if (prevPropsState.deleteTaskError !== deleteTaskError && deleteTaskError) {
                 setTimeout(() => {
                     toast.error("Error occure during deleting Task")
                 }, 500);

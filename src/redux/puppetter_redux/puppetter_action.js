@@ -1,7 +1,7 @@
 import { puppetterSlice } from "./puppetter_slice";
 const { actions } = puppetterSlice;
-import axiosConfig from 'src/constants/common/axiosConfig';
-import axiosNextConfig from "src/constants/common/axiosNextConfig";
+import axiosConfig from 'src/helper/config/axiosConfig';
+import axiosNextConfig from "src/helper/config/axiosNextConfig";
 import axios from "axios";
 
 // // CREATE USER ACTIONS

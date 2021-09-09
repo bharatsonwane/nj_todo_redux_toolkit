@@ -6,7 +6,6 @@ const { actions } = globalClientStateSlice;
 export const clientSideAuthGuardAction = (model) => async (dispatch) => {
     try {
         // dispatch starting action
-        console.log("model", model)
         dispatch(actions.clientSideAuthGuard(model))
     } catch (error) {
         // dispatch failure action

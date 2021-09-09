@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
-import { allClass } from 'src/constants/customHooks/customModuleClassMethod'
+import { allClass } from 'src/helper/customHooks/customModuleClassMethod'
 import mdl from './RetrieveTask.module.scss'
-import { usePrevious } from 'src/constants/customHooks/customHooks'
+import { usePrevious } from 'src/helper/customHooks/customHooks'
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteTaskActions } from 'src/redux/task_redux/task_actions'
+import { deleteTaskActions, retrieveTaskActions } from 'src/redux/task_redux/task_actions'
 import { globalStateSaveActions } from 'src/redux/globalClientState_redux/globalClientState_actions'
 import { toast } from 'react-toastify';
 
@@ -14,13 +14,12 @@ function RetrieveTask(props) {
 
 
     let dispatch = useDispatch()
-    const reducerState = useSelector(
-        (state) => (state)
-    );
+    const reducerState = useSelector((state) => (state));
     let taskReducer = reducerState.taskReducer
     let taskList
-    if (reducerState && taskReducer.retrieveResponce) {
-        taskList = JSON.parse(taskReducer.retrieveResponce) // parse data
+    if (reducerState && taskReducer.retrieveTaskResponse) {
+        // taskList = JSON.parse(taskReducer.retrieveTaskResponse) // parse data
+        taskList = taskReducer.retrieveTaskResponse // parse data
     }
 
 
@@ -37,28 +36,29 @@ function RetrieveTask(props) {
     // }, [])
 
     let isLoading = taskReducer.isLoading
-    // let taskList = JSON.parse(taskReducer.retrieveResponce)
+    // let taskList = JSON.parse(taskReducer.retrieveTaskResponse)
     // // ***To check responce/error after success/error action from reducer***
-    const { retrieveResponce, retrieveError, deleteResponce, deleteError } = taskReducer
-    const prevPropsState = usePrevious({ retrieveResponce, retrieveError, deleteResponce, deleteError }) // custom hook to get previous props & state
+    const { retrieveTaskResponse, retrieveTaskError, deleteTaskResponse, deleteTaskError } = taskReducer
+    const prevPropsState = usePrevious({ retrieveTaskResponse, retrieveTaskError, deleteTaskResponse, deleteTaskError }) // custom hook to get previous props & state
 
     // called when its dependency changes i.e. like componentDidUpdate()
     useEffect(() => {
         if (prevPropsState) {
-            if (prevPropsState.retrieveResponce !== retrieveResponce && retrieveResponce) {
-                // setTaskList(JSON.parse(retrieveResponce))
+            if (prevPropsState.retrieveTaskResponse !== retrieveTaskResponse && retrieveTaskResponse) {
+                // setTaskList(JSON.parse(retrieveTaskResponse))
             }
-            if (prevPropsState.retrieveError !== retrieveError && retrieveError) {
+            if (prevPropsState.retrieveTaskError !== retrieveTaskError && retrieveTaskError) {
                 setTimeout(() => {
                     toast.error("Something went wrong.")
                 }, 500);
             }
-            else if (prevPropsState.deleteResponce !== deleteResponce && deleteResponce) {
+            else if (prevPropsState.deleteTaskResponse !== deleteTaskResponse && deleteTaskResponse) {
+                dispatch(retrieveTaskActions())
                 setTimeout(() => {
                     toast.success("Task deleted successfully")
                 }, 500);
             }
-            else if (prevPropsState.deleteError !== deleteError && deleteError) {
+            else if (prevPropsState.deleteTaskError !== deleteTaskError && deleteTaskError) {
                 setTimeout(() => {
                     toast.error("Something went wrong. can not be delete task")
                 }, 500);

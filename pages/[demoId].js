@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import Head from 'next/head';
 import mdl from 'src/components/task/retrieveDetail/RetrieveDetailTask.module.scss'
 import { getEventBydemoId, getAllEvents } from 'server/data/dummy-data'
-import { allClass } from "src/constants/customHooks/customModuleClassMethod";
+import { allClass } from "src/helper/customHooks/customModuleClassMethod";
 
 
 function HomeDetailPage(props) {

@@ -26,7 +26,7 @@ export const getStaticProps = wrapper.getStaticProps(store => async ({ params })
     await store.dispatch(retrieveTaskActions());
     // let serverStore = store.getState()
     // let taskReducer = serverStore.taskReducer
-    // let taskList = JSON.parse(taskReducer.retrieveResponce)
+    // let taskList = JSON.parse(taskReducer.retrieveTaskResponse)
 
     return {
         props: {

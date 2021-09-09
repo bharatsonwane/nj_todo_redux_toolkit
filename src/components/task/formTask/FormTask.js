@@ -2,8 +2,8 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import mdl from "./FormTask.module.scss"
-import { allClass } from 'src/constants/customHooks/customModuleClassMethod';
-import { useStateCallback, usePrevious } from 'src/constants/customHooks/customHooks' // custome useStateCallback hook
+import { allClass } from 'src/helper/customHooks/customModuleClassMethod';
+import { useStateCallback, usePrevious } from 'src/helper/customHooks/customHooks' // custome useStateCallback hook
 import { useTranslation } from 'next-i18next'
 import { useSelector, useDispatch } from 'react-redux'
 import { createTaskActions, updateTaskActions } from "src/redux/task_redux/task_actions"
@@ -25,9 +25,7 @@ function FormTask(props) {
 
     // // ----------redux store useDispatch & useSelector --------------------
     const dispatch = useDispatch()
-    const reducerState = useSelector(
-        (state) => (state)
-    );
+    const reducerState = useSelector((state) => (state));
     let taskReducer = reducerState.taskReducer
 
 
@@ -44,28 +42,28 @@ function FormTask(props) {
     const { idErr, titleErr, uiTechErr, backEndTechErr, } = err
 
     // // ***To check responce/error after success/error action from reducer***
-    const { createResponce, createError, updateResponce, updateError, isLoading } = taskReducer
-    const prevPropsState = usePrevious({ createResponce, createError, updateResponce, updateError }) // custom hook to get previous props & state
+    const { createTaskResponse, createTaskError, updateTaskResponse, updateTaskError, isLoading } = taskReducer
+    const prevPropsState = usePrevious({ createTaskResponse, createTaskError, updateTaskResponse, updateTaskError }) // custom hook to get previous props & state
     useEffect(() => {
         if (prevPropsState) {
-            if (prevPropsState.createResponce !== createResponce && createResponce) { // // createResponce !== null && createResponce !== undefined
+            if (prevPropsState.createTaskResponse !== createTaskResponse && createTaskResponse) { // // createTaskResponse !== null && createTaskResponse !== undefined
                 setTimeout(() => {
                     toast.success(t("Task Added successfully"))
                 }, 500);
                 router.replace(`/task/ssr/retrieve`);
             }
-            else if (prevPropsState.createError !== createError && createError) {
+            else if (prevPropsState.createTaskError !== createTaskError && createTaskError) {
                 setTimeout(() => {
                     toast.error(t("Not able to create task."))
                 }, 500);
             }
-            if (prevPropsState.updateResponce !== updateResponce && updateResponce) {
+            if (prevPropsState.updateTaskResponse !== updateTaskResponse && updateTaskResponse) {
                 router.replace(`/task/ssr/retrieve`);
                 setTimeout(() => {
                     toast.success(t("Task Updated successfully!"))
                 }, 500);
             }
-            else if (prevPropsState.updateError !== updateError && updateError) {
+            else if (prevPropsState.updateTaskError !== updateTaskError && updateTaskError) {
                 setTimeout(() => {
                     toast.error(t("Not able to edit task."))
                 }, 500);

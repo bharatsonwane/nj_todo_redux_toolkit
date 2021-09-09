@@ -14,9 +14,7 @@ export default function RetrieveDetail() {
 
 
     // // ----------redux store useDispatch & useSelector --------------------
-    const reducerState = useSelector(
-        (state) => (state)
-    );
+    const reducerState = useSelector((state) => (state));
     let globalClientStateReducer = reducerState.globalClientStateReducer
     let task = globalClientStateReducer.task
     let taskReducer = reducerState.taskReducer
@@ -29,7 +27,7 @@ export default function RetrieveDetail() {
 
     return (
         <Fragment>
-            { task && taskReducer &&
+            {task && taskReducer &&
                 <RetrieveDetailTask taskReducer={taskReducer} task={task} />
             }
         </Fragment>

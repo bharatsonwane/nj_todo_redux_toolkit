@@ -1,42 +1,35 @@
-import { userSlice } from "./user_slice";
-const { actions } = userSlice;
-import axiosNextConfig from "src/constants/common/axiosNextConfig";
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import axiosNextConfig from "src/helper/config/axiosNextConfig";
+
+
 
 
 // // CREATE USER ACTIONS
-export const createUserActions = (model) => async (dispatch) => {
-    try {
-        // dispatch starting action
-        dispatch(actions.createUser());
-
-        // using interceptor for axios
-        const response = await axiosNextConfig().post(`/api/authJWT/create`, model)
-
-        // dispatch success action
-        dispatch(actions.createUserSuccess(response.data));
-    } catch (error) {
-        // dispatch failure action
-        dispatch(actions.createUserFailure({ error }));
+export const createUserActions = createAsyncThunk(
+    "user/createUser",
+    async (model, { rejectWithValue }) => {
+        try {
+            const response = await axiosNextConfig().post(`/api/authJWT/create`, model)
+            return response.data;
+        } catch (error) {
+            return rejectWithValue([], error.response);
+        }
     }
-}
+);
 
 
 // // SIGNIN USER ACTIONS
-export const signInUserActions = (model) => async (dispatch) => {
-    try {
-        // dispatch starting action
-        dispatch(actions.signInUser());
-
-        // using interceptor for axios
-        const response = await axiosNextConfig().post(`/api/authJWT/signin`, model)
-
-        // dispatch success action
-        dispatch(actions.signInUserSuccess(response.data));
-    } catch (error) {
-        // dispatch failure action
-        dispatch(actions.signInUserFailure({ error }));
+export const signInUserActions = createAsyncThunk(
+    "user/signin",
+    async (model, { rejectWithValue }) => {
+        try {
+            const response = await axiosNextConfig().post(`/api/authJWT/signin`, model)
+            return response.data;
+        } catch (error) {
+            return rejectWithValue([], error.response);
+        }
     }
-}
+);
 
 
 // // USER TOKEN EXPIRY ACTIONS
@@ -49,19 +42,14 @@ export const userTokenExpiryActions = (model) => async (dispatch) => {
 
 
 // // RETRIEVE USER ACTIONS
-export const retrieveUserDataActions = (model) => async (dispatch) => {
-    try {
-        // dispatch starting action
-        dispatch(actions.retrieveUserData());
-
-        // using interceptor for axios
-        const response = await axiosNextConfig().post(`/api/authUser`, model)
-
-        // dispatch success action
-        dispatch(actions.retrieveUserDataSuccess(response.data));
-    } catch (error) {
-        // dispatch failure action
-        dispatch(actions.retrieveUserDataFailure({ error }));
+export const retrieveUserDataActions = createAsyncThunk(
+    "user/signin",
+    async (model, { rejectWithValue }) => {
+        try {
+            const response = await axiosNextConfig().post(`/api/authUser`, model)
+            return response.data;
+        } catch (error) {
+            return rejectWithValue([], error.response);
+        }
     }
-}
-
+);

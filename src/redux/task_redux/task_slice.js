@@ -1,93 +1,89 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from 'next-redux-wrapper';
+import { createTaskActions, retrieveTaskActions, updateTaskActions, deleteTaskActions } from "./task_actions"
+
 
 const initialCompetitionState = {
   isLoading: false,
   payload: null,
-  createResponce: null,
-  createError: null,
-  retrieveResponce: null,
-  retrieveError: null,
-  updateResponce: null,
-  updateError: null,
-  deleteResponce: false,   // true || false
-  deleteError: null,
+  createTaskResponse: null,
+  createTaskError: null,
+  retrieveTaskResponse: null,
+  retrieveTaskError: null,
+  updateTaskResponse: null,
+  updateTaskError: null,
+  deleteTaskResponse: null,
+  deleteTaskError: null,
 };
 
 
 export const taskSlice = createSlice({
   name: "taskReducer",
   initialState: initialCompetitionState,
-  reducers: {
-    // // CREATE TASK REDUCER
-    createTask: (state, action) => {
-      state.isLoading = true;
-      state.createResponce = null;
-      state.createError = null;
-    },
-    createTaskSuccess: (state, action) => {
-      state.isLoading = false;
-      state.createResponce = action.payload;
-    },
-    createTaskFailure: (state, action) => {
-      state.isLoading = false;
-      state.createError = action.payload;
-    },
+  reducers: {},
 
-    // // RETRIEVE TASK REDUCER
-    retrieveTask: (state, action) => {
-      state.isLoading = true;
-      state.retrieveResponce = null;
-      state.retrieveError = null;
-    },
-    retrieveTaskSuccess: (state, action) => {
-      state.isLoading = false;
-      state.retrieveResponce = action.payload;
-    },
-    retrieveTaskFailure: (state, action) => {
-      state.isLoading = false;
-      state.retrieveError = action.payload;
-    },
+  extraReducers: (builder) => {
+    builder
+      // CREATE TASK
+      .addCase(createTaskActions.pending, (state, action) => {
+        state.isLoading = true
+      })
+      .addCase(createTaskActions.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.createTaskResponse = action.payload;
+      })
+      .addCase(createTaskActions.rejected, (state, action) => {
+        state.isLoading = false;
+        state.createTaskError = action.meta.data
+      })
 
-    // // UPDATE TASK REDUCER
-    updateTask: (state, action) => {
-      state.isLoading = true;
-      state.updateResponce = null;
-      state.updateError = null;
-    },
-    updateTaskSuccess: (state, action) => {
-      state.isLoading = false;
-      state.updateResponce = action.payload;
-    },
-    updateTaskFailure: (state, action) => {
-      state.isLoading = false;
-      state.updateError = action.payload;
-    },
+      // RETREIVE TASK
+      .addCase(retrieveTaskActions.pending, (state, action) => {
+        state.isLoading = true
+      })
+      .addCase(retrieveTaskActions.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.retrieveTaskResponse = action.payload;
+      })
+      .addCase(retrieveTaskActions.rejected, (state, action) => {
+        console.log("retrieveTaskErrorBharat", action)
+        state.isLoading = false;
+        state.retrieveTaskError = action.meta;
+      })
 
-    // // DELETE TASK REDUCER
-    deleteTask: (state, action) => {
-      state.isLoading = true;
-      state.deleteResponce = false;      // true || false
-      state.deleteError = null;
-    },
-    deleteTaskSuccess: (state, action) => {
-      state.isLoading = false;
-      state.deleteResponce = true;
-    },
-    deleteTaskFailure: (state, action) => {
-      state.isLoading = false;
-      state.deleteError = action.payload;
-    },
-  },
+      // UPDATE TASK
+      .addCase(updateTaskActions.pending, (state, action) => {
+        state.isLoading = true
+      })
+      .addCase(updateTaskActions.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.updateTaskResponse = action.payload;
+      })
+      .addCase(updateTaskActions.rejected, (state, action) => {
+        state.isLoading = false;
+        state.updateTaskError = action.meta;
+      })
 
+      // DELETE TASK
+      .addCase(deleteTaskActions.pending, (state, action) => {
+        state.isLoading = true
+        state.deleteTaskResponse = null;
+      })
+      .addCase(deleteTaskActions.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.deleteTaskResponse = action.payload;
+      })
+      .addCase(deleteTaskActions.rejected, (state, action) => {
+        state.isLoading = false;
+        state.deleteTaskError = action.meta;
+      })
 
-  extraReducers: {
-    // // Hydrate
-    [HYDRATE]: (state, action) => {
-      return {
-        ...state,
-        ...action.payload.taskReducer,
-      };
-    },
+      // // Hydrate case
+      .addCase(HYDRATE, (state, action) => {
+        return {
+          ...state,
+          ...action.payload.taskReducer,
+        }
+      })
   },
 });

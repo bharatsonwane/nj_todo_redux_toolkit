@@ -2,7 +2,7 @@ import React, { useEffect, Fragment } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Link from 'next/link';
-import { allClass } from 'src/constants/customHooks/customModuleClassMethod';
+import { allClass } from 'src/helper/customHooks/customModuleClassMethod';
 import mdl from './NavbarMenu.module.scss'
 import { useTranslation } from 'next-i18next'
 import Cookies from 'js-cookie';
@@ -23,9 +23,7 @@ function NavbarMenu(props) {
 
 
     let dispatch = useDispatch()
-    const reducerState = useSelector(
-        (state) => (state)
-    );
+    const reducerState = useSelector((state) => (state));
     let isAuthenticated = reducerState.globalClientStateReducer.isAuthenticated
 
 

@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import mdl from "./signupForm.module.scss"
-import { allClass } from 'src/constants/customHooks/customModuleClassMethod';
+import { allClass } from 'src/helper/customHooks/customModuleClassMethod';
 import { useTranslation } from 'next-i18next'
 import { useSelector, useDispatch } from 'react-redux'
 import { createUserActions } from "src/redux/user_redux/user_action"
@@ -22,9 +22,7 @@ function SignupForm(props) {
 
     // // ----------redux store useDispatch & useSelector --------------------
     const dispatch = useDispatch()
-    const reducerState = useSelector(
-        (state) => (state)
-    );
+    const reducerState = useSelector((state) => (state));
 
 
     // // ----------hooks useState--------------------------------------------------

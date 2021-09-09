@@ -1,7 +1,5 @@
 import axios from "axios";
 import { store } from "src/redux/store"
-import { apiBaseURL } from './baseURLconfig';
-
 
 
 /**
@@ -14,34 +12,20 @@ import { apiBaseURL } from './baseURLconfig';
  */
 
 
-
-let storeData
-export const axiosConfigMiddleware = storeAPI => next => action => {
-    // axiosConfigMiddleware is used to get store data outside of react component
-    let result = next(action)
-    storeData = storeAPI.getState()
-    return result
-}
-
-const axiosConfig = () => {
+const axiosNextConfig = () => {
     const instance = axios.create();
 
-    instance.defaults.baseURL = apiBaseURL;
-
+    // // Here we are not required to mention base user beacause In Nextjs server base URL will be same as project base URL.
 
     // interceptors Request------------------------------------
     if (typeof window === "undefined") {
         // // window object is undefined means code is running on server side
+        console.log("window === undefined")
 
         instance.interceptors.request.use(
             (config) => {
-                let userToken
-                if (storeData && storeData.globalServerStateReducer && storeData.globalServerStateReducer.serverCookie) {
-                    userToken = storeData.globalServerStateReducer.serverCookie
-                }
-
+                let userToken = "true"
                 let token = userToken ? userToken : '';
-                console.log("userToken", userToken)
 
                 if (!!token) {
                     config.headers = {
@@ -88,22 +72,16 @@ const axiosConfig = () => {
     // interceptors Response------------------------------------
     instance.interceptors.response.use(
         (Response) => {
-            
             return Response
         },
         (error) => {
-            if (error.response && error.response.status === 401) {
-                //dispatch action using store to show token expire popup-----
-                if (typeof window === "undefined") {
-                    console.log("tokenExpiryonServerSideResponse")
-
-                }
-                // store.dispatch(userTokenExpiryActions());
+            if (error.response.status !== 401) {
                 return new Promise((resolve, reject) => {
                     reject(error);
                 });
-            }
-            else {
+            } else {
+                //dispatch action using store to show token expire popup-----
+                // store.dispatch(tokenExpiryHandler());
                 return new Promise((resolve, reject) => {
                     reject(error);
                 });
@@ -114,4 +92,4 @@ const axiosConfig = () => {
     return instance;
 }
 
-export default axiosConfig;
+export default axiosNextConfig;

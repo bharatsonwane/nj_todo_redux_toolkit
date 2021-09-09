@@ -1,76 +1,53 @@
-import { taskSlice } from "./task_slice";
-const { actions } = taskSlice;
-import axiosConfig from 'src/constants/common/axiosConfig';
-import {store} from 'src/redux/store'
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import axiosConfig from 'src/helper/config/axiosConfig';
+import { store } from 'src/redux/store'
 
-// // CREATE TASK ACTIONS
-export const createTaskActions = (model) => async (dispatch) => {
-    try {
-        // dispatch starting action
-        dispatch(actions.createTask());
-
-        // using interceptor for axios
-        const response = await axiosConfig().post(`/todo`, model)
-
-        // dispatch success action
-        dispatch(actions.createTaskSuccess(response.data));
-    } catch (error) {
-        // dispatch failure action
-        dispatch(actions.createTaskFailure({ error }));
+export const createTaskActions = createAsyncThunk(
+    "task/createTask",
+    async (model, { rejectWithValue }) => {
+        try {
+            const response = await axiosConfig().post(`/todo/create`, model)
+            return response.data;
+        } catch (error) {
+            return rejectWithValue([], { data: error.response.data });
+        }
     }
-}
+);
 
-
-// // RETRIEVE TASK ACTIONS
-export const retrieveTaskActions = (model) => async (dispatch) => {
-    try {
-        // dispatch starting action
-        dispatch(actions.retrieveTask());
-        // using interceptor for axios
-        const response = await axiosConfig().get(`/todo`)
-
-        // dispatch success action
-        dispatch(actions.retrieveTaskSuccess(response.data));
-    } catch (error) {
-        // dispatch failure action
-        dispatch(actions.retrieveTaskFailure({ error }));
+export const retrieveTaskActions = createAsyncThunk(
+    "task/retrieveTask",
+    async (model, { rejectWithValue }) => {
+        try {
+            const response = await axiosConfig().get(`/todo/retrieve`)
+            return response.data;
+        } catch (error) {
+            return rejectWithValue([], { data: error.response.data });
+        }
     }
-}
+);
 
-
-// // UPDATE TASK ACTIONS
-export const updateTaskActions = (model) => async (dispatch) => {
-    try {
-        // dispatch starting action
-        dispatch(actions.updateTask());
-
-        // using interceptor for axios
-        const response = await axiosConfig().put(`/todo`, model)
-
-        // dispatch success action
-        dispatch(actions.updateTaskSuccess(response.data));
-    } catch (error) {
-        // dispatch failure action
-        dispatch(actions.updateTaskFailure({ error }));
+export const updateTaskActions = createAsyncThunk(
+    "task/updateTask",
+    async (model, { rejectWithValue }) => {
+        try {
+            const response = await axiosConfig().put(`/todo/update`, model)
+            return response.data;
+        } catch (error) {
+            return rejectWithValue([], { data: error.response.data });
+        }
     }
-}
+);
 
 
-// // DELETE TASK ACTIONS
-export const deleteTaskActions = (model) => async (dispatch) => {
-    try {
-        // dispatch starting action
-        dispatch(actions.deleteTask());
-
-        // using interceptor for axios
-        const response = await axiosConfig().delete(`/todo/${model}`)
-
-        // dispatch success action
-        dispatch(actions.deleteTaskSuccess(response.data));
-        dispatch(retrieveTaskActions())                //dispatch retrieve action after deleting action 
-
-    } catch (error) {
-        // dispatch failure action
-        dispatch(actions.deleteTaskFailure({ error }));
+export const deleteTaskActions = createAsyncThunk(
+    "task/deleteTask",
+    async (model, { rejectWithValue }) => {
+        try {
+            const response = await axiosConfig().delete(`/todo/${model}`)
+            // store.dispatch(retrieveTaskActions())
+            return response.data;
+        } catch (error) {
+            return rejectWithValue([], { data: error.response.data });
+        }
     }
-}
+);

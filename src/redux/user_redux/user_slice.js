@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from 'next-redux-wrapper';
+import { createUserActions, signInUserActions, retrieveUserDataActions } from "./user_action"
+
 
 const initialCompetitionState = {
   isLoading: false,
@@ -14,42 +16,33 @@ const initialCompetitionState = {
 export const userSlice = createSlice({
   name: "userReducer",
   initialState: initialCompetitionState,
-  reducers: {
-    // // CREATE USER REDUCER
-    createUser: (state, action) => {
-      state.isLoading = true;
-      state.createUserResponce = null;
-      state.createUserError = null;
-    },
-    createUserSuccess: (state, action) => {
-      state.isLoading = false;
-      state.createUserResponce = action.payload;
-    },
-    createUserFailure: (state, action) => {
-      state.isLoading = false;
-      state.createUserError = action.payload;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      // // CREATE USER REDUCER
+      .addCase(createUserActions.pending, (state, action) => {
+        state.isLoading = true
+      })
+      .addCase(createUserActions.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.createUserResponce = action.payload;
+      })
+      .addCase(createUserActions.rejected, (state, action) => {
+        state.isLoading = false;
+        state.createUserError = action.meta.data;
+      })
 
-    // // SIGNIN USER REDUCER
-    signInUser: (state, action) => {
-      state.isLoading = true;
-      state.signInUserResponce = null;
-      state.signInUserError = null;
-    },
-    signInUserSuccess: (state, action) => {
-      state.isLoading = false;
-      state.signInUserResponce = action.payload;
-    },
-    signInUserFailure: (state, action) => {
-      state.isLoading = false;
-      state.signInUserError = action.payload;
-    },
-
-
-  },
-
-
-  extraReducers: {
-
+      // // SIGNIN USER REDUCER
+      .addCase(signInUserActions.pending, (state, action) => {
+        state.isLoading = true
+      })
+      .addCase(signInUserActions.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.signInUserResponce = action.payload;
+      })
+      .addCase(signInUserActions.rejected, (state, action) => {
+        state.isLoading = false;
+        state.signInUserError = action.meta.data;
+      })
   },
 });
